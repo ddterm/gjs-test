@@ -1,0 +1,44 @@
+{
+    "name": "gjs-test",
+    "description": "A test runner and assertion library for GJS",
+    "private": true,
+    "homepage": "https://github.com/ddterm/gjs-test",
+    "bugs": "https://github.com/ddterm/gjs-test/issues",
+    "license": "MIT",
+    "author": {
+        "name": "Aleksandr Mezin",
+        "email": "mezin.alexander@gmail.com",
+        "url": "https://github.com/amezin"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ddterm/gjs-test.git"
+    },
+    "type": "module",
+    "devDependencies": {
+        "@eslint/js": "10.0.1",
+        "@girs/gio-2.0": "5.5.0",
+        "@girs/gjs": "5.5.0",
+        "eslint": "10.12.0",
+        "eslint-config-gnome": "https://github.com/ddterm/eslint-config-gnome/archive/c479d059e8d9ea99c3b53c2ea43abf7fdb05eb51.tar.gz",
+        "eslint-plugin-jsdoc": "65.0.2",
+        "typedoc": "0.28.20",
+        "typedoc-plugin-mdn-links": "5.1.1",
+        "typescript": "6.0.3",
+        "typescript-eslint": "8.71.0"
+    },
+    "overrides": {
+        "eslint-config-gnome": {
+            "@eslint/js": "$@eslint/js",
+            "eslint-plugin-jsdoc": "$eslint-plugin-jsdoc"
+        }
+    },
+    "scripts": {
+        "lint": "eslint",
+        "eslint": "eslint",
+        "tsc": "tsc",
+        "typecheck": "tsc",
+        "doc": "typedoc",
+        "typedoc": "typedoc"
+    }
+}

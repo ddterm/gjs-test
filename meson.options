@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 Aleksandr Mezin <mezin.alexander@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+option(
+  'install_dir',
+  type : 'string',
+  value : '',
+  description : 'If not empty, install the modules to the specified directory'
+)
+
+option(
+  'install_tag',
+  type : 'string',
+  value : '',
+  description : 'install_tag for the built modules',
+)
+
+option('tests',
+  type: 'boolean',
+  value: false,
+  description: 'Enable tests'
+)
