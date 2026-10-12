@@ -41,15 +41,14 @@ jobs:
     needs:
       - lint
 
+    container: ghcr.io/ddterm/gnome-shell-image/fedora-45:2026.10.12.0@sha256:23dd069eac48753d58640d3375af57bc669dc02b8685ed89d8642855eec90711
+
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y meson gjs colorized-logs
-
-      - run: meson setup -Dtests=true build
+      - run: meson setup -Dtests=true -Dcoverage=true build
         shell: pipetty bash -e {0}
 
       - run: meson compile
@@ -57,6 +56,19 @@ jobs:
         working-directory: build
 
       - run: meson test -j1 --no-rebuild --print-errorlogs --no-stdsplit
+        shell: pipetty bash -e {0}
+        working-directory: build
+
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        if: ${{ !cancelled() }}
+        with:
+          files: build/coverage.lcov
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
+
+      - run: meson compile coverage-summary
         shell: pipetty bash -e {0}
         working-directory: build
 

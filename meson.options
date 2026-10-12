@@ -21,3 +21,9 @@ option('tests',
   value: false,
   description: 'Enable tests'
 )
+
+option('coverage',
+  type: 'boolean',
+  value: false,
+  description: 'Collect code coverage information for tests. Currently requires patched GJS'
+)

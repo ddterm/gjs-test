@@ -19,9 +19,10 @@ install_dir = get_option('install_dir')
 install_tag = get_option('install_tag')
 
 outputs = []
+fs = import('fs')
 
 foreach source : sources
-  outputs += import('fs').copyfile(
+  outputs += fs.copyfile(
     source,
     install: install_dir != '',
     install_dir: install_dir,
