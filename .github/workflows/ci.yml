@@ -60,7 +60,7 @@ jobs:
         working-directory: build
 
       - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && vars.CODECOV_ENABLE == '1' }}
         with:
           files: build/coverage.lcov
           disable_search: true
