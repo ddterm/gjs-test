@@ -20,6 +20,7 @@ permissions:
 
 jobs:
   lint:
+    name: lint
     runs-on: ubuntu-26.04
     timeout-minutes: 5
 
@@ -36,6 +37,7 @@ jobs:
       - uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6.0.0
 
   test:
+    name: test
     runs-on: ubuntu-26.04
     timeout-minutes: 5
     needs:
@@ -73,6 +75,7 @@ jobs:
         working-directory: build
 
   doc:
+    name: doc
     needs: lint
     runs-on: ubuntu-26.04
     timeout-minutes: 5
@@ -92,14 +95,15 @@ jobs:
           name: docs-${{ github.run_attempt }}
 
   doc-publish:
+    name: doc-publish
     if: github.ref_name == github.event.repository.default_branch
     needs: doc
     runs-on: ubuntu-slim
     timeout-minutes: 5
 
     permissions:
-      pages: write
-      id-token: write
+      pages: write # deploy the documentation artifact to GitHub Pages
+      id-token: write # required by actions/deploy-pages to obtain the Pages deployment token
 
     environment:
       name: github-pages

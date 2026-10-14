@@ -1,0 +1,89 @@
+# SPDX-FileCopyrightText: 2026 Aleksandr Mezin <mezin.alexander@gmail.com>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+name: code-scan
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '35 6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}/${{ github.ref }}
+
+jobs:
+  codeql:
+    name: codeql (${{ matrix.language }})
+    runs-on: ubuntu-26.04
+
+    permissions:
+      contents: read
+      security-events: write # upload SARIF results to GitHub code scanning
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript-typescript
+          - actions
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: github/codeql-action/init@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+          config: |
+            threat-models: local
+
+      - uses: github/codeql-action/analyze@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          category: '/language:${{matrix.language}}'
+
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-slim
+
+    permissions:
+      contents: read
+      security-events: write # upload SARIF results to GitHub code scanning
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - working-directory: ${{ runner.temp }}
+        run: |
+          wget "https://github.com/zizmorcore/zizmor/releases/download/v${ZIZMOR_VERSION}/zizmor-x86_64-unknown-linux-gnu.tar.gz"
+          echo "$ZIZMOR_SHA256 zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum --check --strict -
+          mkdir zizmor
+          tar -C zizmor -xf zizmor-x86_64-unknown-linux-gnu.tar.gz
+          echo "$(pwd)/zizmor" >>"$GITHUB_PATH"
+        env:
+          # renovate: datasource=custom.github-release-assets depName=zizmor packageName="zizmor-x86_64-unknown-linux-gnu.tar.gz" registryUrl=https://api.github.com/repos/zizmorcore/zizmor/releases
+          ZIZMOR_VERSION: '1.30.1'
+          # renovate-digest: datasource=custom.github-release-assets depName=zizmor currentValue=1.30.1 packageName="zizmor-x86_64-unknown-linux-gnu.tar.gz" registryUrl=https://api.github.com/repos/zizmorcore/zizmor/releases
+          ZIZMOR_SHA256: 'e65324f4430c2717591937edcec90ccbefaf14c174f8ec9415e03ca875b46e1a'
+
+      - run: zizmor --format=sarif --pedantic . >"$RUNNER_TEMP/results.sarif"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: ${{ runner.temp }}/results.sarif
+          category: zizmor
