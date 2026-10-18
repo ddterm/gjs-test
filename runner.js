@@ -4,6 +4,10 @@
 
 /** @module runner.js */
 
+import Gio from 'gi://Gio';
+
+import System from 'system';
+
 /** @import {Reporter} from './reporter.js' */
 
 import {TapReporter} from './reporter.js';
@@ -215,26 +219,43 @@ export class Suite extends Node {
             this.#running = false;
         }
     }
-}
 
-/** @import Gio from '@girs/gio-2.0' */
+    /**
+     * Setup a Gio.Application to run the test suite.
+     *
+     * @param {Gio.Application} app - The Application object.
+     */
+    connectApplication(app) {
+        app.connect('activate', () => {
+            const reporter = new TapReporter();
 
-/**
- * Setup a Gio.Application to run the test suite.
- *
- * @param {Gio.Application} app - The Application object.
- * @param {Suite} suite - The test suite to run.
- */
-export function setupApplication(app, suite) {
-    app.connect('activate', () => {
-        const reporter = new TapReporter();
+            reporter.start();
+            app.hold();
 
-        reporter.start();
-        app.hold();
+            this.run(reporter).finally(() => {
+                app.release();
+                reporter.end();
+            }).catch(logError);
+        });
+    }
 
-        suite.run(reporter).finally(() => {
-            app.release();
-            reporter.end();
-        }).catch(logError);
-    });
+    /**
+     * Run the test suite, using the specified Gio.Application object for command line parsing
+     * and the event loop.
+     *
+     * @param {Gio.Application} app - The Application object.
+     * @param {string[]} argv - Command line argument array.
+     * @returns {Promise<void>}
+     */
+    runApplication(
+        app = new Gio.Application(),
+        argv = [System.programInvocationName, ...System.programArgs]
+    ) {
+        this.connectApplication(app);
+
+        return app.runAsync(argv).catch(/** @param {unknown} ex */ ex => {
+            logError(ex);
+            return 1;
+        }).then(exitCode => System.exit(exitCode));
+    }
 }

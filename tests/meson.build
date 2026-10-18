@@ -18,7 +18,12 @@ foreach test_file : files('simple.js')
     ]
   endif
 
-  test_args += ['-m', fs.copyfile(test_file)]
+  test_args += [
+    '-m',
+    fs.copyfile(test_file),
+    '--snapshot-directory',
+    meson.current_source_dir() / 'snapshots',
+  ]
 
   test(
     test_name,
