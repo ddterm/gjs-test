@@ -14,11 +14,9 @@ import {setupApplication, Suite} from '../runner.js';
 const app = new Gio.Application();
 
 setupApplication(app, new Suite(null, 'simple', suite => {
-    suite.test('empty', async () => {
-    });
+    suite.test('empty', async () => { /* empty */ });
 
-    // eslint-disable-next-line require-await
-    suite.test('passing assertion', async () => {
+    suite.test('passing assertion', () => {
         assertThat(true, is(true));
     });
 }));

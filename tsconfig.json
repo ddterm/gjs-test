@@ -3,24 +3,31 @@
 // SPDX-License-Identifier: CC0-1.0
 
 {
+  "extends": [
+    "@tsconfig/bases/strictest",
+  ],
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "sourceMap": false,
+    "target": "es2022",
+    "module": "es2020",
+    "lib": ["ES2022"],
     "noEmit": true,
-    "strict": true,
     "allowJs": true,
     "checkJs": true,
-    "skipLibCheck": true,
-    "target": "ES2023",
-    "lib": [
-      "ES2023",
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedParameters": false,
+    "types": [
+      "@girs/gjs",
+      "@girs/gjs/dom",
+      "@girs/glib-2.0",
+      "@girs/gobject-2.0",
+      "@girs/gio-2.0",
     ],
   },
+  "typeAcquisition": {
+    "enable": false
+  },
   "include": [
-    "eslint.config.mjs",
-    "ambient.d.ts",
     "*.js",
-    "tests/*.js"
+    "tests/*.js",
   ],
 }

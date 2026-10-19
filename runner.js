@@ -78,6 +78,7 @@ export class Test extends Node {
     /**
      * Run the test.
      *
+     * @override
      * @param {Reporter} reporter - The Reporter to output test status to.
      * @returns {Promise<void>}
      */
@@ -187,6 +188,7 @@ export class Suite extends Node {
     /**
      * Run the test suite.
      *
+     * @override
      * @param {Reporter} reporter - The Reporter to output test status to.
      * @returns {Promise<void>}
      */
