@@ -26,6 +26,11 @@ export class Node {
         this.#parent = parent;
     }
 
+    /**
+     * Short name of the Node.
+     *
+     * @returns {string} The name as string.
+     */
     get name() {
         return this.#name;
     }

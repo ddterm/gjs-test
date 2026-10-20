@@ -20,7 +20,6 @@ import tseslint from 'typescript-eslint';
  * @param {string} basePath - The directory to start search form.
  * @param {ConfigArray} parentIgnores - Already collected patterns from parent directories.
  * @returns {Generator<ConfigObject>}
- * @yields {ConfigObject}
  */
 function *collectIgnores(
     basePath = import.meta.dirname,
@@ -95,14 +94,48 @@ export default defineConfig([
                 returnAssign: false,
                 allowParensAfterCommentPattern: '@type',
             }],
+            'jsdoc/require-jsdoc': ['error', {
+                publicOnly: {
+                    esm: true,
+                    cjs: false,
+                },
+                require: {
+                    ArrowFunctionExpression: true,
+                    ClassDeclaration: true,
+                    ClassExpression: true,
+                    FunctionDeclaration: true,
+                    FunctionExpression: true,
+                    MethodDefinition: true,
+                },
+            }],
+            'jsdoc/require-returns': ['error', {
+                publicOnly: {
+                    esm: true,
+                    cjs: false,
+                },
+                exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
+            }],
+            'jsdoc/require-yields': 'off',
             'jsdoc/require-description': ['error', {
-                exemptedBy: ['inheritdoc', 'private'],
+                contexts: [
+                    'ClassDeclaration',
+                    'ClassExpression',
+                    'FunctionDeclaration',
+                    'MethodDefinition[key.type="Identifier"]',
+                ],
+                exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
+            }],
+            'jsdoc/require-returns-description': ['error', {
+                contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
+            }],
+            'jsdoc/require-param-description': ['error', {
+                contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
             }],
             'jsdoc/require-description-complete-sentence': 'error',
             'jsdoc/require-hyphen-before-param-description': 'error',
             'jsdoc/require-asterisk-prefix': 'error',
-            '@typescript-eslint/restrict-template-expressions': ['off'],
-            '@typescript-eslint/no-base-to-string': ['off'],
+            '@typescript-eslint/restrict-template-expressions': 'off',
+            '@typescript-eslint/no-base-to-string': 'off',
         },
         languageOptions: {
             parserOptions: {
