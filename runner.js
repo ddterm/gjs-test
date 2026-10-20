@@ -76,7 +76,8 @@ export class Test extends Node {
      *
      * @param {Suite | null} parent - The suite that contains this test.
      * @param {string} name - Test name.
-     * @param {function(Test): void | Promise<void>} fn - The function that implements the test.
+     * @param {function(this: Test, Test): void | Promise<void>} fn - The function that
+     * implements the test.
      */
     constructor(parent, name, fn) {
         super(name, parent);
@@ -95,7 +96,7 @@ export class Test extends Node {
         if (this.#running)
             throw new Error('Recursive Test.run() calls are not allowed');
 
-        /** @type {function(Test): unknown} */
+        /** @type {function(this: Test, Test): unknown} */
         const unknownFn = this.#fn;
         let result;
 
@@ -103,7 +104,7 @@ export class Test extends Node {
 
         try {
             reporter.testStart(this);
-            result = await unknownFn(this);
+            result = await Promise.resolve(this).then(unknownFn.bind(this));
 
             if (result !== undefined)
                 throw new Error(`Test function must not return a value, but it returned ${result}`);
@@ -132,17 +133,17 @@ export class Suite extends Node {
      *
      * @param {Suite | null} parent - The suite that contains this suite.
      * @param {string} name - Suite name.
-     * @param {function(Suite): void} fn - The function that populates the suite.
+     * @param {function(this: Suite, Suite): void} fn - The function that populates the suite.
      */
     constructor(parent, name, fn) {
         super(name, parent);
 
-        /** @type {function(Suite): unknown} */
+        /** @type {function(this: Suite, Suite): unknown} */
         const unknownFn = fn;
         let result;
 
         try {
-            result = unknownFn(this);
+            result = unknownFn.call(this, this);
         } finally {
             this.#populated = true;
         }

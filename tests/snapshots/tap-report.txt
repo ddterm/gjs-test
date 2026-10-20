@@ -1,0 +1,109 @@
+ok 1 - Test suite / empty
+ok 2 - Test suite / passing assertion
+not ok 3 - Test suite / failing assertion
+  ---
+  {
+    "constructor": {
+      "name": "AssertionError"
+    },
+    "fileName": "<baseUrl>assert.js",
+    "lineNumber": 46,
+    "columnNumber": 9,
+    "message": "Expected true, got false",
+    "name": "AssertionError",
+    "expected": true,
+    "actual": false,
+    "toString": "AssertionError: Expected true, got false",
+    "stack": "AssertionError@<baseUrl>assert.js:46:9\nassertThat@<baseUrl>assert.js:67:15\n@<baseUrl>tests/simple.js:50:27\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+  }
+  ...
+not ok 4 - Test suite / throws
+  ---
+  {
+    "constructor": {
+      "name": "AggregateError"
+    },
+    "fileName": "<baseUrl>tests/simple.js",
+    "lineNumber": 74,
+    "columnNumber": 23,
+    "message": "Aggregate",
+    "errors": {
+      "0": {
+        "constructor": {
+          "name": "Error"
+        },
+        "fileName": "<baseUrl>tests/simple.js",
+        "lineNumber": 54,
+        "columnNumber": 33,
+        "message": "JS error",
+        "self": {
+          "! repeated !": "errors.0"
+        },
+        "symbol": {
+          "constructor": {
+            "name": "Symbol"
+          },
+          "toString": "Symbol(Test symbol)"
+        },
+        "nan": {
+          "constructor": {
+            "name": "Number"
+          },
+          "toString": "NaN"
+        },
+        "negativeInf": {
+          "constructor": {
+            "name": "Number"
+          },
+          "toString": "-Infinity"
+        },
+        "randomNumber": 7,
+        "nullProto": {
+          "constructor": {
+            "toString": "undefined"
+          },
+          "toString": {
+            "! exception !": {
+              "constructor": {
+                "name": "TypeError"
+              },
+              "fileName": "<baseUrl>reporter.js",
+              "lineNumber": 229,
+              "columnNumber": 40,
+              "message": "can't convert value to string",
+              "toString": "TypeError: can't convert value to string",
+              "stack": "replacer@<baseUrl>reporter.js:229:40\ntestEnd@<baseUrl>reporter.js:251:32\nrun@<baseUrl>runner.js:114:22\nasync*run@<baseUrl>runner.js:217:29\nasync*@<baseUrl>tests/simple.js:76:12\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+            }
+          }
+        },
+        "bigNumber": {
+          "constructor": {
+            "name": "BigInt"
+          },
+          "toString": "42"
+        },
+        "undef": {
+          "toString": "undefined"
+        },
+        "toString": "Error: JS error",
+        "stack": "@<baseUrl>tests/simple.js:54:33\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+      },
+      "1": {
+        "constructor": {
+          "name": "GLib_FileError"
+        },
+        "domain": "g-file-error-quark",
+        "code": 24,
+        "message": "Test GLib.Error",
+        "toString": "GLib.FileError: Test GLib.Error"
+      },
+      "constructor": {
+        "name": "Array"
+      },
+      "length": 2,
+      "toString": "Error: JS error,GLib.FileError: Test GLib.Error"
+    },
+    "toString": "AggregateError: Aggregate",
+    "stack": "@<baseUrl>tests/simple.js:74:23\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+  }
+  ...
