@@ -125,15 +125,18 @@ export default defineConfig([
                 ],
                 exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
             }],
-            'jsdoc/require-returns-description': ['error', {
+            'jsdoc/require-param-description': ['error', {
                 contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
             }],
-            'jsdoc/require-param-description': ['error', {
+            'jsdoc/require-returns-description': ['error', {
                 contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
             }],
             'jsdoc/require-description-complete-sentence': 'error',
             'jsdoc/require-hyphen-before-param-description': 'error',
             'jsdoc/require-asterisk-prefix': 'error',
+            '@typescript-eslint/only-throw-error': ['error', {
+                allow: [{from: 'package', package: '@girs/glib-2.0', name: 'Error'}],
+            }],
             '@typescript-eslint/restrict-template-expressions': 'off',
             '@typescript-eslint/no-base-to-string': 'off',
         },
@@ -161,6 +164,8 @@ export default defineConfig([
         ],
         plugins: {jsdoc},
         rules: {
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-description': 'off',
             'jsdoc/require-param-description': 'off',
             'jsdoc/require-returns': 'off',
             'jsdoc/require-returns-description': 'off',

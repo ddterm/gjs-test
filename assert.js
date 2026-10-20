@@ -21,7 +21,37 @@ import Gio from 'gi://Gio';
  * @typedef MatchResult
  * @property {boolean} ok - Whether the check succeeded.
  * @property {string} [message] - If the check has failed, the description of the failure.
+ * @property {unknown} [expected] - Expected value.
+ * @property {unknown} [actual] - Actual value.
  */
+
+/**
+ * Thrown when an assertion fails.
+ */
+export class AssertionError extends Error {
+    /**
+     * @override
+     */
+    name = 'AssertionError';
+
+    /**
+     * Create a new AssertionError.
+     *
+     * @param {object} params - Error properties.
+     * @param {string} params.message - The description of the failure.
+     * @param {unknown} [params.expected] - Expected value.
+     * @param {unknown} [params.actual] - Actual value.
+     */
+    constructor(params) {
+        super(params.message);
+
+        if ('expected' in params)
+            this.expected = params.expected;
+
+        if ('actual' in params)
+            this.actual = params.actual;
+    }
+}
 
 /**
  * Throw an error if the actual value doesn't satisfy the matcher condition.
@@ -31,10 +61,10 @@ import Gio from 'gi://Gio';
  * @throws {Error} Error with the description of the failure if the check has failed.
  */
 export function assertThat(actual, matcher) {
-    const {ok, message} = matcher(actual);
+    const {ok, message = 'Assertion error', ...params} = matcher(actual);
 
     if (!ok)
-        throw new Error(message);
+        throw new AssertionError({message, ...params});
 }
 
 /**
@@ -54,6 +84,8 @@ export function is(expected) {
         return {
             ok,
             message: `Expected ${expected}, got ${actual}`,
+            expected,
+            actual,
         };
     };
 }

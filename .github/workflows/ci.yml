@@ -71,6 +71,7 @@ jobs:
           verbose: true
 
       - run: meson compile coverage-summary
+        if: ${{ !cancelled() }}
         shell: pipetty bash -e {0}
         working-directory: build
 
