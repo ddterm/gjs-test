@@ -39,11 +39,11 @@
         }
     },
     "scripts": {
-        "lint:eslint": "eslint",
         "lint:tsc:gjs": "tsc -p ./tsconfig.json",
         "lint:tsc:node": "tsc -p ./tsconfig.node.json",
-        "lint:tsc": "run-s lint:tsc:*",
-        "lint": "run-s lint:*",
+        "lint:tsc": "run-s -c lint:tsc:*",
+        "lint:eslint": "eslint",
+        "lint": "run-s -c lint:*",
         "doc:typedoc": "typedoc",
         "doc": "run-s doc:*"
     }

@@ -55,7 +55,7 @@ export default defineConfig([
     {
         files: ['**/*.js', '**/*.mjs'],
         plugins: {
-            gnome,  // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            gnome,
             jsdoc,
             tseslint,
         },
@@ -106,8 +106,18 @@ export default defineConfig([
         },
         languageOptions: {
             parserOptions: {
-                project: './tsconfig.json',
-                tsconfigRootDir: import.meta.dirname,
+                projectService: {
+                    allowDefaultProject: ['*.mjs'],
+                    defaultProject: './tsconfig.node.json',
+                },
+            },
+        },
+    },
+    {
+        files: ['**/*.mjs'],
+        languageOptions: {
+            globals: {
+                ...globals.node,
             },
         },
     },
@@ -121,18 +131,6 @@ export default defineConfig([
             'jsdoc/require-param-description': 'off',
             'jsdoc/require-returns': 'off',
             'jsdoc/require-returns-description': 'off',
-        },
-    },
-    {
-        files: ['**/*.mjs'],
-        languageOptions: {
-            globals: {
-                ...globals.node,
-            },
-            parserOptions: {
-                project: './tsconfig.node.json',
-                tsconfigRootDir: import.meta.dirname,
-            },
         },
     },
 ]);
