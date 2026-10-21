@@ -103,7 +103,7 @@ export class Test extends Node {
 
         try {
             reporter.testStart(this);
-            result = await unknownFn(this);
+            result = await Promise.resolve().then(unknownFn.bind(this, this));
 
             if (result !== undefined)
                 throw new Error(`Test function must not return a value, but it returned ${result}`);
