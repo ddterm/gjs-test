@@ -22,7 +22,7 @@
         "@girs/gjs": "5.5.0",
         "@tsconfig/bases": "1.0.28",
         "@types/node": "26.6.5",
-        "eslint": "10.12.0",
+        "eslint": "10.13.0",
         "eslint-config-gnome": "https://github.com/ddterm/eslint-config-gnome/archive/c479d059e8d9ea99c3b53c2ea43abf7fdb05eb51.tar.gz",
         "eslint-plugin-jsdoc": "65.0.2",
         "globals": "17.13.0",
