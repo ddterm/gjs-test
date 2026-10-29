@@ -26,7 +26,7 @@
         "eslint-config-gnome": "https://github.com/ddterm/eslint-config-gnome/archive/c479d059e8d9ea99c3b53c2ea43abf7fdb05eb51.tar.gz",
         "eslint-plugin-jsdoc": "65.0.2",
         "globals": "17.13.0",
-        "npm-run-all2": "9.0.3",
+        "npm-run-all2": "9.0.4",
         "typedoc": "0.28.20",
         "typedoc-plugin-mdn-links": "5.1.1",
         "typescript": "6.0.3",
