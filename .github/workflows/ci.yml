@@ -43,7 +43,7 @@ jobs:
     needs:
       - lint
 
-    container: ghcr.io/ddterm/gnome-shell-image/fedora-45:2026.10.12.0@sha256:23dd069eac48753d58640d3375af57bc669dc02b8685ed89d8642855eec90711
+    container: ghcr.io/ddterm/gnome-shell-image/fedora-45:2026.10.27.0@sha256:28fc13f68d34f39b9c5b00f70171587f5c0ad2c91e7861a3fc842506f09d5ec7
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
