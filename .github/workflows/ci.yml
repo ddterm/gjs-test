@@ -70,6 +70,16 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        if: ${{ !cancelled() && vars.CODECOV_ENABLE == '1' }}
+        with:
+          report_type: test_results
+          files: build/meson-logs/testlog.junit.xml
+          disable_search: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
+
       - run: meson compile coverage-summary
         if: ${{ !cancelled() }}
         shell: pipetty bash -e {0}
