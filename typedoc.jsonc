@@ -4,7 +4,7 @@
 
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": ["assert.js", "runner.js", "reporter.js"],
+    "entryPoints": ["assert.js", "runner.js", "reporter.js", "yaml.js"],
     "html": "html",
     "name": "gjs-test",
     "tsconfig": "tsconfig.json",
