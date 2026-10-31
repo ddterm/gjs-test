@@ -66,4 +66,9 @@ if coverage
     'coverage-summary',
     command: [lcov, '--summary', meson.project_build_root() / 'coverage.lcov', lcov_args],
   )
+
+  run_target(
+    'coverage-clean',
+    command: ['rm', '-f', meson.project_build_root() / 'coverage.lcov']
+  )
 endif
