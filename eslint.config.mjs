@@ -143,7 +143,7 @@ export default defineConfig([
         languageOptions: {
             parserOptions: {
                 projectService: {
-                    allowDefaultProject: ['*.mjs'],
+                    allowDefaultProject: ['*.mjs', 'tests/*.mjs'],
                     defaultProject: './tsconfig.node.json',
                 },
             },

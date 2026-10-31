@@ -1,0 +1,122 @@
+strings:
+    plain: hello world
+    Unicode: café ☕
+    empty: ''
+    'null': 'null'
+    integer: '42'
+    exponent: '1e3'
+    timestamp: '2026-11-01'
+    YAML 1.1 boolean: 'yes'
+    leading space: ' leading'
+    indicator: '? key'
+    document start: '---'
+    comment: '# comment'
+    colon separator: 'key: value'
+    apostrophe: "it's: YAML"
+    CR and LF: "multi\nline\r\n"
+    NUL: "before\u0000after"
+    DEL: "before\u007fafter"
+    C1 control: "before\u0080\u009fafter"
+    NEL: "\u0085"
+    NEL with colon: "before\u0085after: value"
+    BOM: "\ufeff"
+    BOM in plain: "before\ufeffafter"
+    non-characters: "before\ufffe\uffffafter"
+    unpaired surrogate: "before\ud800after"
+literal strings:
+    strip final break: |-
+        first line
+        second line
+    clip final break: |
+        first line
+        second line
+    keep final breaks: |+
+        first line
+
+    only a line break: |+
+
+    leading spaces: |4-
+          indented
+          content
+    BOM in multiline: "first line\n\ufeffsecond line"
+    NEL in multiline: "first line\u0085\nsecond line"
+    space and line break: " \n"
+    spaces and line breaks: "  \n\n"
+    line break and space: "\n "
+    spaces around line break: " \n "
+non-string scalars:
+    'null': null
+    boolean: true
+    integer: 42
+    not a number: .nan
+    positive infinity: .inf
+    negative infinity: -.inf
+    bigint: 123456789012345678901234567890
+sequences:
+    empty: []
+    scalars:
+        - first
+        - 42
+        - true
+        - null
+        - |-
+            multi-line
+            item
+        - |4-
+              indented
+              item
+    nested sequences:
+        -   - inner 1
+            - inner 2
+        - []
+    mappings in sequence:
+        -   key 1: value 1
+            key 2: value 2
+        - {}
+anchors and aliases:
+    anchored scalar: &text reused
+    alias: *text
+    override anchor: &text overridden
+    reuse overridden anchor: *text
+    re-anchor original scalar: &text reused
+    ? *text
+    : scalar alias key
+    anchored mapping: &shared
+        inside: mapping
+    mapping alias: *shared
+    ? *shared
+    : mapping alias key
+    anchored sequence: &list
+        - shared
+        - items
+    sequence alias: *list
+    ? *list
+    : sequence alias key
+complex keys:
+    ?   inner: mapping key
+        second: second entry
+        nested:
+            deep: nested value
+        literal: |-
+            multi-line
+            in key
+        indented literal: |4-
+              indented
+              in key
+    : mapping value
+    ? {}
+    : empty mapping value
+    ?   - Detroit Tigers
+        - Chicago Cubs
+    :
+        - '2001-07-23'
+    ? []
+    : empty sequence value
+    ? |-
+        multi-line
+        key
+    : literal key value
+    ? |4-
+          indented
+          key
+    : indented literal key value
