@@ -13,6 +13,7 @@ sources = files(
   'assert.js',
   'reporter.js',
   'runner.js',
+  'yaml.js',
 )
 
 install_dir = get_option('install_dir')
