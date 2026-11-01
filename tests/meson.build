@@ -2,8 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-gjs = find_program('gjs')
 coverage = get_option('coverage')
+gjs = find_program('gjs', version: coverage ? '>=1.90.1' : '>=1.80.0')
 
 foreach test_file : files('simple.js')
   test_name = fs.stem(test_file)
