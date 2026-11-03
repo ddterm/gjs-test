@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Aleksandr Mezin <mezin.alexander@gmail.com>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+[wrap-file]
+source_url = https://registry.npmjs.org/yaml/-/yaml-3.0.0-2.tgz
+source_filename = yaml-3.0.0-2.tgz
+source_hash = 6274719dd2cd0f733605ca5fbad295a7c05209b910758acd5bb5f662d789b1d3
+lead_directory_missing = true
+patch_directory = yaml

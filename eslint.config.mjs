@@ -51,6 +51,7 @@ function *collectIgnores(
 
 export default defineConfig([
     ...collectIgnores(),
+    globalIgnores(['subprojects/packagefiles/']),
     {
         files: ['**/*.js', '**/*.mjs'],
         plugins: {

@@ -5,3 +5,7 @@
 *~
 /node_modules/
 /html/
+
+/subprojects/*
+!/subprojects/*.wrap
+!/subprojects/packagefiles/

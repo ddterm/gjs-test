@@ -30,6 +30,17 @@ foreach source : sources
   )
 endforeach
 
+yaml = subproject(
+  'yaml',
+  default_options: {
+    'install_dir': install_dir == '' ? '' : install_dir / 'subprojects' / 'yaml',
+    'install_tag': install_tag,
+  },
+)
+
+sources += yaml.get_variable('sources')
+outputs += yaml.get_variable('outputs')
+
 if get_option('tests')
   subdir('tests')
 endif

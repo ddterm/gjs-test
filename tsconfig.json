@@ -29,5 +29,7 @@
   "include": [
     "*.js",
     "tests/*.js",
+    "subprojects/yaml/*.js",
+    "subprojects/yaml/package/dist/*.ts",
   ],
 }
