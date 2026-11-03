@@ -6,6 +6,8 @@
 
 import GLib from 'gi://GLib';
 
+import * as YAML from './subprojects/yaml/index.js';
+
 /** @import {Test} from './runner.js' */
 
 /**
@@ -143,8 +145,8 @@ export class TapReporter extends Reporter {
 
         this.#print(`not ok ${this.#test_point_id} - ${TapReporter.#escape(test.fullName)}`);
 
-        /** @type {Map<unknown, string>} */
-        const visited = new Map();
+        /** @type {Map<unknown, unknown>} */
+        const cache = new Map();
         const raw = new Set();
 
         /**
@@ -156,11 +158,14 @@ export class TapReporter extends Reporter {
          * @param {unknown} value - Value.
          */
         function replacer(key, value) {
+            if (cache.has(value))
+                return cache.get(value);
+
             if (
+                value === null ||
                 typeof value === 'string' ||
                 typeof value === 'boolean' ||
-                value === null ||
-                Number.isFinite(value) ||
+                typeof value === 'number' ||
                 raw.has(value)
             )
                 return value;
@@ -182,19 +187,6 @@ export class TapReporter extends Reporter {
 
             /** @type {Record<string, unknown>} */
             const serializable = {};
-
-            if (typeof value === 'object' || typeof value === 'function') {
-                const visitedKey = visited.get(value);
-
-                if (visitedKey !== undefined)
-                    return {'! repeated !': visitedKey};
-
-                const parent = visited.get(this);
-                const path = parent ? `${parent}.${key}` : key;
-
-                visited.set(value, path);
-                visited.set(serializable, path);
-            }
 
             try {
                 if (value !== undefined) {
@@ -243,12 +235,14 @@ export class TapReporter extends Reporter {
                 serializable['! exception !'] = ex;
             }
 
+            cache.set(value, serializable);
+
             return serializable;
         };
 
         try {
             this.#print(
-                `  ---\n${JSON.stringify(result, replacer, 2).replace(/^/mg, '  ')}\n  ...`
+                `  ---\n${YAML.stringify(result, replacer, 2).replace(/^/mg, '  ')}  ...`
             );
         } catch (ex) {
             this.#print(`# ${TapReporter.#escape(String(ex), true)}`);
