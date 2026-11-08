@@ -7,14 +7,14 @@ not ok 3 - Test suite / failing assertion
       "name": "AssertionError"
     },
     "fileName": "<baseUrl>assert.js",
-    "lineNumber": 46,
+    "lineNumber": 48,
     "columnNumber": 9,
     "message": "Expected true, got false",
     "name": "AssertionError",
     "expected": true,
     "actual": false,
     "toString": "AssertionError: Expected true, got false",
-    "stack": "AssertionError@<baseUrl>assert.js:46:9\nassertThat@<baseUrl>assert.js:67:15\n@<baseUrl>tests/simple.js:50:27\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+    "stack": "AssertionError@<baseUrl>assert.js:48:9\nassertThat@<baseUrl>assert.js:77:15\n@<baseUrl>tests/simple.js:50:27\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
   }
   ...
 not ok 4 - Test suite / throws

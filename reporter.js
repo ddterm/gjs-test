@@ -49,9 +49,9 @@ export class Reporter {
 }
 
 /**
+ * @callback Print
  * A function that prints the message somewhere.
  *
- * @callback Print
  * @param {string} message - The message to print.
  */
 

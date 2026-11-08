@@ -11,5 +11,8 @@
     "plugin": ["typedoc-plugin-mdn-links"],
     "jsDocCompatibility": {
         "exampleTag": false
+    },
+    "validation": {
+        "notDocumented": true
     }
 }

@@ -8,17 +8,17 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 
 /**
+ * @callback Matcher
  * A function that checks if the actual value meets some condition.
  *
- * @callback Matcher
  * @param {unknown} actual - The actual value to check.
  * @returns {MatchResult} The conclusion of the check.
  */
 
 /**
+ * @typedef MatchResult
  * A result of the check.
  *
- * @typedef MatchResult
  * @property {boolean} ok - Whether the check succeeded.
  * @property {string} [message] - If the check has failed, the description of the failure.
  * @property {unknown} [expected] - Expected value.
@@ -30,6 +30,8 @@ import Gio from 'gi://Gio';
  */
 export class AssertionError extends Error {
     /**
+     * Error name.
+     *
      * @override
      */
     name = 'AssertionError';
@@ -45,11 +47,19 @@ export class AssertionError extends Error {
     constructor(params) {
         super(params.message);
 
-        if ('expected' in params)
+        if ('expected' in params) {
+            /**
+             * Expected value.
+             */
             this.expected = params.expected;
+        }
 
-        if ('actual' in params)
+        if ('actual' in params) {
+            /**
+             * Actual value.
+             */
             this.actual = params.actual;
+        }
     }
 }
 

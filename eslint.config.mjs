@@ -65,6 +65,11 @@ export default defineConfig([
             'tseslint/strictTypeChecked',
             'tseslint/stylisticTypeChecked',
         ],
+        settings: {
+            jsdoc: {
+                overrideReplacesDocs: false,
+            },
+        },
         rules: {
             'max-len': [
                 'error',
@@ -107,6 +112,9 @@ export default defineConfig([
                     FunctionExpression: true,
                     MethodDefinition: true,
                 },
+                contexts: [
+                    'PropertyDefinition[key.type="Identifier"]',
+                ],
             }],
             'jsdoc/require-returns': ['error', {
                 publicOnly: {
@@ -122,6 +130,7 @@ export default defineConfig([
                     'ClassExpression',
                     'FunctionDeclaration',
                     'MethodDefinition[key.type="Identifier"]',
+                    'PropertyDefinition[key.type="Identifier"]',
                 ],
                 exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
             }],
@@ -134,6 +143,20 @@ export default defineConfig([
             'jsdoc/require-description-complete-sentence': 'error',
             'jsdoc/require-hyphen-before-param-description': 'error',
             'jsdoc/require-asterisk-prefix': 'error',
+            'jsdoc/no-restricted-syntax': ['error', {
+                contexts: [
+                    {
+                        comment: 'JsdocBlock[description=/\\S/]:has(JsdocTag[tag=/^(callback|typedef)$/])',
+                        context: 'any',
+                        message: 'Block description before @callback or @typedef is ignored by TypeDoc; put the description after the tag.',
+                    },
+                    {
+                        comment: 'JsdocBlock:not(:has(JsdocTag[tag=/^(inheritdoc|ignore|private|hidden|internal)$/])):has(JsdocTag[tag=/^(callback|typedef)$/]:not([description=/\\S/]))',
+                        context: 'any',
+                        message: '@callback and @typedef must have a description.',
+                    },
+                ],
+            }],
             '@typescript-eslint/only-throw-error': ['error', {
                 allow: [{from: 'package', package: '@girs/glib-2.0', name: 'Error'}],
             }],
