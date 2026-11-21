@@ -18,8 +18,8 @@
     "devDependencies": {
         "@eslint/config-array": "0.23.5",
         "@eslint/js": "10.0.1",
-        "@girs/gio-2.0": "5.5.0",
-        "@girs/gjs": "5.5.0",
+        "@girs/gio-2.0": "5.6.0",
+        "@girs/gjs": "5.6.0",
         "@tsconfig/bases": "1.0.28",
         "@types/node": "26.6.5",
         "eslint": "10.13.0",
