@@ -148,12 +148,9 @@ export class TapReporter extends Reporter {
         const raw = new Set();
 
         /**
-         * Replacer function for JSON.stringify().
-         *
-         * @private
          * @this {unknown}
-         * @param {string} key - Key.
-         * @param {unknown} value - Value.
+         * @param {string} key
+         * @param {unknown} value
          */
         function replacer(key, value) {
             if (

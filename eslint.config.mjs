@@ -113,7 +113,7 @@ export default defineConfig([
                     MethodDefinition: true,
                 },
                 contexts: [
-                    'PropertyDefinition[key.type="Identifier"]',
+                    'PropertyDefinition',
                 ],
             }],
             'jsdoc/require-returns': ['error', {
@@ -125,20 +125,24 @@ export default defineConfig([
             }],
             'jsdoc/require-yields': 'off',
             'jsdoc/require-description': ['error', {
-                contexts: [
-                    'ClassDeclaration',
-                    'ClassExpression',
-                    'FunctionDeclaration',
-                    'MethodDefinition[key.type="Identifier"]',
-                    'PropertyDefinition[key.type="Identifier"]',
-                ],
+                publicOnly: {
+                    esm: true,
+                    cjs: false,
+                },
+                contexts: ['*'],
                 exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
             }],
             'jsdoc/require-param-description': ['error', {
-                contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
+                publicOnly: {
+                    esm: true,
+                    cjs: false,
+                },
             }],
             'jsdoc/require-returns-description': ['error', {
-                contexts: ['FunctionDeclaration', 'MethodDefinition[key.type="Identifier"]'],
+                publicOnly: {
+                    esm: true,
+                    cjs: false,
+                },
             }],
             'jsdoc/require-description-complete-sentence': 'error',
             'jsdoc/require-hyphen-before-param-description': 'error',
