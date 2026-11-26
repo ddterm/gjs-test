@@ -57,7 +57,7 @@ jobs:
         shell: pipetty bash -e {0}
         working-directory: build
 
-      - run: meson test -j1 --no-rebuild --print-errorlogs --no-stdsplit
+      - run: meson test -j1 --print-errorlogs --no-stdsplit
         shell: pipetty bash -e {0}
         working-directory: build
 

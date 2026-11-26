@@ -11,6 +11,10 @@ foreach test_file : files('yaml-samples.js')
   test_extra_sources += fs.copyfile(test_file)
 endforeach
 
+if coverage
+  test_extra_sources += gjs_bug_workaround_self_hosted_file
+endif
+
 foreach test_file : files('simple.js', 'yaml.js')
   test_name = fs.stem(test_file)
   test_args = []
@@ -49,6 +53,7 @@ if coverage
   lcov_args = [
     '-v',
     '--exclude=tests/*',
+    '--exclude=self-hosted',
     '--branch-coverage',
     '--ignore-errors=inconsistent',  # spidermonkey outputs duplicate function names
     '--forget-test-names',
