@@ -8,17 +8,13 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 
 /**
- * @callback Matcher
- * A function that checks if the actual value meets some condition.
- *
+ * @callback Matcher A function that checks if the actual value meets some condition.
  * @param {unknown} actual - The actual value to check.
  * @returns {MatchResult} The conclusion of the check.
  */
 
 /**
- * @typedef MatchResult
- * A result of the check.
- *
+ * @typedef MatchResult A result of the check.
  * @property {boolean} ok - Whether the check succeeded.
  * @property {string} [message] - If the check has failed, the description of the failure.
  * @property {unknown} [expected] - Expected value.
@@ -110,8 +106,9 @@ export class SnapshotDirectory {
     /**
      * Create a new SnapshotDirectory.
      *
-     * @param {string|GLib.Uri} baseUrl - URL of the snapshot directory.
+     * @param {string | GLib.Uri} baseUrl - URL of the snapshot directory.
      * @param {boolean} update - Update mismatching snapshots instead of failing the test.
+     * @throws {Error | GLib.Error} When baseUrl is invalid.
      */
     constructor(baseUrl, update = false) {
         if (!(baseUrl instanceof GLib.Uri))
@@ -127,7 +124,8 @@ export class SnapshotDirectory {
     /**
      * Resolve snapshot directory URL from module URL.
      *
-     * @param {string|GLib.Uri} moduleUrl - URL of the module. Usually should be 'import.meta.url'.
+     * @param {string | GLib.Uri} moduleUrl - URL of the module.
+     * Usually should be 'import.meta.url'.
      * @param {string} relative - URL of the snapshot directory, relative to the 'moduleUrl'.
      * @param {boolean} update - Update mismatching snapshots instead of failing the test.
      * @returns {SnapshotDirectory} A SnapshotDirectory instance pointing to the specified

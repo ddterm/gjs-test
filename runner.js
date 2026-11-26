@@ -134,6 +134,7 @@ export class Suite extends Node {
      * @param {Suite | null} parent - The suite that contains this suite.
      * @param {string} name - Suite name.
      * @param {function(this: Suite, Suite): void} fn - The function that populates the suite.
+     * @throws {TypeError} When fn callback returns a value.
      */
     constructor(parent, name, fn) {
         super(name, parent);
@@ -161,6 +162,7 @@ export class Suite extends Node {
      * @param {string} name - Test name.
      * @param {function(Test): void | Promise<void>} fn - The function that implements the test.
      * @returns {void}
+     * @throws {Error} When called outside suite() callback.
      */
     test(name, fn) {
         if (this.#populated || this.#adding)
@@ -181,6 +183,7 @@ export class Suite extends Node {
      * @param {string} name - Test suite name.
      * @param {function(Suite): void} fn - The function that populates the suite.
      * @returns {void}
+     * @throws {Error} When called outside suite() callback.
      */
     suite(name, fn) {
         if (this.#populated || this.#adding)

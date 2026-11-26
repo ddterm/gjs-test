@@ -7,14 +7,14 @@ not ok 3 - Test suite / failing assertion
       "name": "AssertionError"
     },
     "fileName": "<baseUrl>assert.js",
-    "lineNumber": 48,
+    "lineNumber": 44,
     "columnNumber": 9,
     "message": "Expected true, got false",
     "name": "AssertionError",
     "expected": true,
     "actual": false,
     "toString": "AssertionError: Expected true, got false",
-    "stack": "AssertionError@<baseUrl>assert.js:48:9\nassertThat@<baseUrl>assert.js:77:15\n@<baseUrl>tests/simple.js:50:27\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+    "stack": "AssertionError@<baseUrl>assert.js:44:9\nassertThat@<baseUrl>assert.js:73:15\n@<baseUrl>tests/simple.js:50:27\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
   }
   ...
 not ok 4 - Test suite / throws
@@ -68,11 +68,11 @@ not ok 4 - Test suite / throws
                 "name": "TypeError"
               },
               "fileName": "<baseUrl>reporter.js",
-              "lineNumber": 226,
+              "lineNumber": 219,
               "columnNumber": 40,
               "message": "can't convert value to string",
               "toString": "TypeError: can't convert value to string",
-              "stack": "replacer@<baseUrl>reporter.js:226:40\ntestEnd@<baseUrl>reporter.js:248:32\nrun@<baseUrl>runner.js:114:22\nasync*run@<baseUrl>runner.js:217:29\nasync*@<baseUrl>tests/simple.js:76:12\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+              "stack": "replacer@<baseUrl>reporter.js:219:40\ntestEnd@<baseUrl>reporter.js:241:32\nrun@<baseUrl>runner.js:114:22\nasync*run@<baseUrl>runner.js:220:29\nasync*@<baseUrl>tests/simple.js:76:12\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
             }
           }
         },

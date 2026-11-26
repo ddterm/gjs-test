@@ -60,7 +60,7 @@ export default defineConfig([
         },
         extends: [
             'gnome/recommended',
-            'jsdoc/flat/recommended-typescript-flavor-error',
+            'jsdoc/flat/all-typescript-flavor-error',
             'gnome/jsdoc',
             'tseslint/strictTypeChecked',
             'tseslint/stylisticTypeChecked',
@@ -123,7 +123,6 @@ export default defineConfig([
                 },
                 exemptedBy: ['inheritdoc', 'ignore', 'private', 'hidden', 'internal'],
             }],
-            'jsdoc/require-yields': 'off',
             'jsdoc/require-description': ['error', {
                 publicOnly: {
                     esm: true,
@@ -144,9 +143,6 @@ export default defineConfig([
                     cjs: false,
                 },
             }],
-            'jsdoc/require-description-complete-sentence': 'error',
-            'jsdoc/require-hyphen-before-param-description': 'error',
-            'jsdoc/require-asterisk-prefix': 'error',
             'jsdoc/no-restricted-syntax': ['error', {
                 contexts: [
                     {
@@ -161,6 +157,11 @@ export default defineConfig([
                     },
                 ],
             }],
+            'jsdoc/informative-docs': 'off',
+            'jsdoc/require-example': 'off',
+            'jsdoc/require-file-overview': 'off',
+            'jsdoc/require-rejects': 'off',
+            'jsdoc/require-yields': 'off',
             '@typescript-eslint/only-throw-error': ['error', {
                 allow: [{from: 'package', package: '@girs/glib-2.0', name: 'Error'}],
             }],
@@ -191,11 +192,12 @@ export default defineConfig([
         ],
         plugins: {jsdoc},
         rules: {
-            'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-description': 'off',
+            'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-param-description': 'off',
             'jsdoc/require-returns': 'off',
             'jsdoc/require-returns-description': 'off',
+            'jsdoc/require-throws': 'off',
         },
     },
 ]);

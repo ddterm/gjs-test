@@ -40,7 +40,7 @@ export class Reporter {
      * Called when a test has finished.
      *
      * @param {Test} test - The test.
-     * @param {unknown|null} result - Error if the test has failed, null - if it succeeded.
+     * @param {unknown | null} result - Error if the test has failed, null - if it succeeded.
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     testEnd(test, result) {
@@ -49,9 +49,7 @@ export class Reporter {
 }
 
 /**
- * @callback Print
- * A function that prints the message somewhere.
- *
+ * @callback Print A function that prints the message somewhere.
  * @param {string} message - The message to print.
  */
 
@@ -80,13 +78,12 @@ export class TapReporter extends Reporter {
      *
      * Compatible with TAP v14.
      *
-     * @see https://testanything.org/tap-version-14-specification.html#escaping
-     *
      * @param {string} str - The string to escape.
      * @param {boolean} multiline - Whether multiline text is allowed. If set to true, all lines
      * after the first one will be converted to comment lines. By default, line breaks are replaced
      * with spaces.
      * @returns {string} The string with `#` and `\` characters escaped.
+     * @see https://testanything.org/tap-version-14-specification.html#escaping
      */
     static #escape(str, multiline = false) {
         return str.replace(/\\|#/g, '\\$&').replace(/\n/g, multiline ? '\n#' : ' ');
@@ -95,9 +92,8 @@ export class TapReporter extends Reporter {
     /**
      * Prints TAP version line.
      *
-     * @see https://testanything.org/tap-specification.html#the-version
-     *
      * @override
+     * @see https://testanything.org/tap-specification.html#the-version
      */
     start() {
         this.#print('TAP version 13');
@@ -106,9 +102,8 @@ export class TapReporter extends Reporter {
     /**
      * Prints the test plan.
      *
-     * @see https://testanything.org/tap-specification.html#the-plan
-     *
      * @override
+     * @see https://testanything.org/tap-specification.html#the-plan
      */
     end() {
         this.#print(`1..${this.#test_point_id}`);
@@ -125,15 +120,13 @@ export class TapReporter extends Reporter {
     /**
      * Prints the test line.
      *
-     * @see https://testanything.org/tap-specification.html#the-test-line
-     *
      * Compatible with TAP v14.
-     *
-     * @see https://testanything.org/tap-version-14-specification.html#test-points
      *
      * @override
      * @param {Test} test - The test.
-     * @param {unknown|null} result - Error if the test has failed, null - if it succeeded.
+     * @param {unknown | null} result - Error if the test has failed, null - if it succeeded.
+     * @see https://testanything.org/tap-specification.html#the-test-line
+     * @see https://testanything.org/tap-version-14-specification.html#test-points
      */
     testEnd(test, result) {
         if (result === null) {
@@ -148,9 +141,9 @@ export class TapReporter extends Reporter {
         const raw = new Set();
 
         /**
-         * @this {unknown}
          * @param {string} key
          * @param {unknown} value
+         * @this {unknown}
          */
         function replacer(key, value) {
             if (
