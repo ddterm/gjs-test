@@ -61,6 +61,13 @@ jobs:
         shell: pipetty bash -e {0}
         working-directory: build
 
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: meson-logs
+          path: build/meson-logs
+          if-no-files-found: error
+
       - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         if: ${{ !cancelled() && vars.CODECOV_ENABLE == '1' }}
         with:
