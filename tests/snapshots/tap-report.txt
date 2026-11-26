@@ -68,11 +68,11 @@ not ok 4 - Test suite / throws
                 "name": "TypeError"
               },
               "fileName": "<baseUrl>reporter.js",
-              "lineNumber": 229,
+              "lineNumber": 226,
               "columnNumber": 40,
               "message": "can't convert value to string",
               "toString": "TypeError: can't convert value to string",
-              "stack": "replacer@<baseUrl>reporter.js:229:40\ntestEnd@<baseUrl>reporter.js:251:32\nrun@<baseUrl>runner.js:114:22\nasync*run@<baseUrl>runner.js:217:29\nasync*@<baseUrl>tests/simple.js:76:12\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
+              "stack": "replacer@<baseUrl>reporter.js:226:40\ntestEnd@<baseUrl>reporter.js:248:32\nrun@<baseUrl>runner.js:114:22\nasync*run@<baseUrl>runner.js:217:29\nasync*@<baseUrl>tests/simple.js:76:12\n_init/Gio.Application.prototype.runAsync/</<@<GJS internal>\n"
             }
           }
         },
