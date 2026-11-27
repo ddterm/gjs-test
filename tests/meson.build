@@ -5,7 +5,17 @@
 coverage = get_option('coverage')
 gjs = find_program('gjs', version: coverage ? '>=1.90.1' : '>=1.80.0')
 
-foreach test_file : files('simple.js')
+test_extra_sources = []
+
+foreach test_file : files('yaml-samples.js')
+  test_extra_sources += fs.copyfile(test_file)
+endforeach
+
+if coverage
+  test_extra_sources += gjs_bug_workaround_self_hosted_file
+endif
+
+foreach test_file : files('simple.js', 'yaml.js')
   test_name = fs.stem(test_file)
   test_args = []
 
@@ -29,7 +39,7 @@ foreach test_file : files('simple.js')
     test_name,
     gjs,
     args: test_args,
-    depends: outputs,
+    depends: [outputs, test_extra_sources],
     protocol: 'tap',
     is_parallel: not coverage,
     workdir: meson.project_build_root(),
@@ -43,6 +53,7 @@ if coverage
   lcov_args = [
     '-v',
     '--exclude=tests/*',
+    '--exclude=self-hosted',
     '--branch-coverage',
     '--ignore-errors=inconsistent',  # spidermonkey outputs duplicate function names
     '--forget-test-names',
@@ -65,5 +76,10 @@ if coverage
   run_target(
     'coverage-summary',
     command: [lcov, '--summary', meson.project_build_root() / 'coverage.lcov', lcov_args],
+  )
+
+  run_target(
+    'coverage-clean',
+    command: ['rm', '-f', meson.project_build_root() / 'coverage.lcov']
   )
 endif

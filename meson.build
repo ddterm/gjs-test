@@ -13,6 +13,7 @@ sources = files(
   'assert.js',
   'reporter.js',
   'runner.js',
+  'yaml.js',
 )
 
 install_dir = get_option('install_dir')
@@ -31,5 +32,10 @@ foreach source : sources
 endforeach
 
 if get_option('tests')
+  gjs_bug_workaround_self_hosted_file = custom_target(
+    output: 'self-hosted',
+    command: ['touch', '@OUTPUT@']
+  )
+
   subdir('tests')
 endif
