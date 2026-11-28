@@ -24,7 +24,7 @@
         "@types/node": "26.6.6",
         "eslint": "10.15.0",
         "eslint-config-gnome": "https://github.com/ddterm/eslint-config-gnome/archive/c479d059e8d9ea99c3b53c2ea43abf7fdb05eb51.tar.gz",
-        "eslint-plugin-jsdoc": "65.5.0",
+        "eslint-plugin-jsdoc": "65.5.5",
         "globals": "17.14.0",
         "npm-run-all2": "9.1.0",
         "typedoc": "0.28.20",
